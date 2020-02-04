@@ -3,24 +3,26 @@ searchHistory = [
     "New York City",
     "Sao Paulo",
     "Prague",
-    "Shibuya",
+    "Shibuya"
 ];
 
-for (i=0; i < searchHistory.length; i++) {
-    let div = $("<div>").addClass("prev-search-queries py-2").text(searchHistory[i]);
-    $("#search-history").append(div)
+for (i = 0; i < searchHistory.length; i++) {
+    let div = $("<div>")
+        .addClass("prev-search-queries py-2")
+        .text(searchHistory[i]);
+    $("#search-history").append(div);
 }
 
-let city;
 let apiKey = "d8da2da3039bec3b4cab3e48675fc451";
 
-function renderCurrentForecast() {
+function renderCurrentForecast(city) {
     let queryURL =
         "https://api.openweathermap.org/data/2.5/weather?q=" +
         city +
         "&units=imperial&APPID=" +
         apiKey;
 
+    let uvIndex;
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -39,11 +41,25 @@ function renderCurrentForecast() {
         $("#temp").text(Math.round(data.main.temp) + " °F");
         $("#humidity").text(data.main.humidity + "%");
         $("#wind-speed").text(data.wind.speed + " mph");
-        $("#uv-index").text("FIND UV INDEX");
+
+        // get UV index
+        $.ajax({
+            url:
+                "https://api.openweathermap.org/data/2.5/uvi?" +
+                "lat=" +
+                data.coord.lat +
+                "&lon=" +
+                data.coord.lon +
+                "&APPID=d8da2da3039bec3b4cab3e48675fc451",
+            method: "GET"
+        }).then(function(data) {
+            $("#uv-index").text(data.value);
+            setUVIndexBackgroundColor(data.value);
+        });
     });
 }
 
-function render5DayForecast() {
+function render5DayForecast(city) {
     let queryURL =
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
@@ -88,8 +104,8 @@ function render5DayForecast() {
                     weather_icon = "clouds.png";
             }
 
-            let forecastSquare = $("<div>")
-                .addClass("col-2-sm forecast-square")
+            let forecastTile = $("<div>")
+                .addClass("col-2-sm forecast-tile")
                 .attr("data-day", [j]);
             let dateDiv = $("<div>")
                 .addClass("forecast-date p-2")
@@ -104,36 +120,59 @@ function render5DayForecast() {
                 .addClass("forecast humidity p-2")
                 .text(humidity + "%");
 
-            forecastSquare.append(dateDiv, img, tempDiv, humidityDiv);
-            $("#five-day-container").append(forecastSquare);
+            forecastTile.append(dateDiv, img, tempDiv, humidityDiv);
+            $("#five-day-container").append(forecastTile);
             j++;
         }
     });
 }
 
-function renderSearchHistory () {
+function renderSearchHistory() {
     searchHistory.unshift($("#city-search-field").val());
     searchHistory.pop();
     $("#search-history").empty();
 
+    for (i = 0; i < searchHistory.length; i++) {
+        let div = $("<div>")
+            .addClass("prev-search-queries py-2")
+            .text(searchHistory[i]);
+        $("#search-history").append(div);
+    }
+}
 
-    for (i=0; i < searchHistory.length; i++) {
-        let div = $("<div>").addClass("prev-search-queries py-2").text(searchHistory[i]);
-        $("#search-history").append(div)
+function setUVIndexBackgroundColor (uvIndex) {
+    if (uvIndex < 3) {
+        $("#uv-index").attr("style", "background: #b4ffa7");
+    }
+
+    else if (uvIndex > 3 && uvIndex < 5) {
+        $("#uv-index").attr("style", "background: #f9f871"); 
+    }
+
+    else if (uvIndex > 5 && uvIndex < 7) {
+        $("#uv-index").attr("style", "background: #fbbea3");
+    }
+
+    else if (uvIndex > 7 && uvIndex < 10) {
+        $("#uv-index").attr("style", "background: #ff4646; color: #ffffff");
+    }
+
+    else if (uvIndex > 10) {
+        $("#uv-index").attr("style", "background: #814f6a; color: #ffffff");
     }
 }
 
 $("#submit").on("click", function(event) {
     event.preventDefault();
     city = $("#city-search-field").val();
-    renderCurrentForecast();
-    render5DayForecast();
+    renderCurrentForecast(city);
+    render5DayForecast(city);
     renderSearchHistory();
     $("#city-search-field").val("");
 });
 
-$("#search-history").on("click", ".prev-search-queries", function () {
+$("#search-history").on("click", ".prev-search-queries", function() {
     city = this.textContent;
-    renderCurrentForecast();
-    render5DayForecast();
-})
+    renderCurrentForecast(city);
+    render5DayForecast(city);
+});
