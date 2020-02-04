@@ -16,7 +16,7 @@ let apiKey = "d8da2da3039bec3b4cab3e48675fc451";
 
 function renderCurrentForecast() {
     let queryURL =
-        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
         city +
         "&units=imperial&APPID=" +
         apiKey;
@@ -45,7 +45,7 @@ function renderCurrentForecast() {
 
 function render5DayForecast() {
     let queryURL =
-        "http://api.openweathermap.org/data/2.5/forecast?q=" +
+        "https://api.openweathermap.org/data/2.5/forecast?q=" +
         city +
         "&units=imperial&APPID=" +
         apiKey;
