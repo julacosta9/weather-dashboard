@@ -96,7 +96,7 @@ function render5DayForecast() {
                 .text(date);
             let img = $("<img>")
                 .addClass("forecast-img m-2")
-                .attr("src", "/assets/" + weather_icon);
+                .attr("src", "assets/" + weather_icon);
             let tempDiv = $("<div>")
                 .addClass("forecast-temp p-2")
                 .text(temp + " °F");
