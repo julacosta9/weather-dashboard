@@ -105,7 +105,7 @@ function render5DayForecast(city) {
             }
 
             let forecastTile = $("<div>")
-                .addClass("col-2-sm forecast-tile")
+                .addClass("col-sm-2 col-md-2 forecast-tile")
                 .attr("data-day", [j]);
             let dateDiv = $("<div>")
                 .addClass("forecast-date p-2")

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Weather Dashboard</title>
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+
+        <!-- Google Fonts-->
+        <link
+            href="https://fonts.googleapis.com/css?family=Bowlby+One+SC|Public+Sans|VT323&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Mitr:200,300&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="style.css" />
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div class="container-fluid mt-4" id="wrapper">
+            <div class="row d-none d-md-block" id="desktop-spacer"></div>
+            <div class="row mb-4">
+                <div class="col text-center">
+                    <h1 class="header">weather dashboard <span id="emoji">☔</span></h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-2">
+                    <form>
+                        <input type="text" class="form-control" id="city-search-field" placeholder="enter a city..."/>
+                        <button class="btn" type="submit" id="submit">Search</button>
+                    </form>
+                    <div class="row mt-4">
+                        <div class="col-sm col-md-9 d-none d-md-block" id="search-history"></div>
+                    </div>
+                </div>
+                <div class="col-sm col-md-6" style="max-width:1200px">
+                    <h2 id="city" class="mb-4">
+                        city
+                    </h2>
+                    <div class="row">
+                        <div class="col-sm mt-4">
+                            <p>Temperature: <span id="temp">n/a</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p>Humidity: <span id="humidity">n/a</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p>Wind Speed: <span id="wind-speed">n/a</span></p>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm">
+                            <p>UV Index: <span id="uv-index">n/a</span></p>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm">
+                            <h3>5-day forecast:</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div
+                            class="d-flex justify-content-between text-center"
+                            id="five-day-container"
+                        ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+
+
+    <script src="script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    </body>
+</html>
