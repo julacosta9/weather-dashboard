@@ -115,7 +115,7 @@ h3 {
     height: 60px;
     border: none;
     font-size: 30px;
-    background: url("assets/search-icon.png") 5% center no-repeat;
+    background: url("assets/search-icon.png") 0 center no-repeat;
     background-size: 30px;
     padding-left: 60px;
     color: #3d4757;
