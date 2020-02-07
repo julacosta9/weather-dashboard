@@ -38,9 +38,14 @@ function renderCurrentForecast(city) {
         $("#city")
             .text(data.name)
             .append(dateSpan);
-        $("#temp").text(Math.round(data.main.temp) + " °F");
-        $("#humidity").text(data.main.humidity + "%");
-        $("#wind-speed").text(data.wind.speed + " mph");
+        $("#temp").text("temperature: " + Math.round(data.main.temp) + " °F");
+        $("#humidity").text("humidity: " + data.main.humidity + "%");
+        $("#wind-speed").text("wind speed: " + data.wind.speed + " mph");
+
+        let htmlString = "uv index: <span id='uv-index'></span>";
+        $("#uv-index-parent").html(htmlString);
+
+        $("#five-day-header").text("5-day forecast:");
 
         // get UV index
         $.ajax({
@@ -105,7 +110,7 @@ function render5DayForecast(city) {
             }
 
             let forecastTile = $("<div>")
-                .addClass("col-2-sm forecast-tile")
+                .addClass("forecast-tile")
                 .attr("data-day", [j]);
             let dateDiv = $("<div>")
                 .addClass("forecast-date p-2")
