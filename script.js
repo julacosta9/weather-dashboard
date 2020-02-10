@@ -13,6 +13,8 @@ for (i = 0; i < searchHistory.length; i++) {
     $("#search-history").append(div);
 }
 
+$("#city-search-field").focus();
+
 let apiKey = "d8da2da3039bec3b4cab3e48675fc451";
 
 function renderCurrentForecast(city) {
