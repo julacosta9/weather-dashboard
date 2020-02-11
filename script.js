@@ -24,7 +24,6 @@ function renderCurrentForecast(city) {
         "&units=imperial&APPID=" +
         apiKey;
 
-    let uvIndex;
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -170,13 +169,12 @@ function setUVIndexBackgroundColor (uvIndex) {
 }
 
 $("#submit").on("click", function(event) {
-    // event.preventDefault();
+    event.preventDefault();
     city = $("#city-search-field").val();
     renderCurrentForecast(city);
     render5DayForecast(city);
     renderSearchHistory();
     $("#city-search-field").val("");
-    return false;
 });
 
 $("#search-history").on("click", ".prev-search-queries", function() {
